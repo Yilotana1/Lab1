@@ -8,9 +8,10 @@
 
     <TextView
         android:id="@+id/first_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="First text"
+        android:layout_width="94dp"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:text="Жилко Анатолій Група ІО-81 ЗК ІО-8107"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
