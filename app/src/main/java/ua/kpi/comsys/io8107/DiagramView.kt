@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.view.View
-import kotlin.math.cos
 
 class DiagramView(context: Context) : View(context) {
 

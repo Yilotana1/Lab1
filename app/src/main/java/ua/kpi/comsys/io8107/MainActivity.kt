@@ -28,28 +28,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-//        val graphBtn = findViewById<Button>(R.id.graph)
-//        Log.d("TAG", "graphBTN = " + graphBtn)
-//        val diagramBtn = findViewById<Button>(R.id.diagram)
-//        val graphFragment = GraphFragment()
-//        val diagramFragment = DiagramFragment()
-//
-//        graphBtn.setOnClickListener {
-//            supportFragmentManager
-//                .beginTransaction().apply {
-//                    replace(R.id.picture, graphFragment)
-//                    commit()
-//                }
-//        }
-//
-//        diagramBtn.setOnClickListener {
-//            supportFragmentManager
-//                .beginTransaction().apply {
-//                    replace(R.id.picture, diagramFragment)
-//                    commit()
-//                }
-//        }
-
     }
 
     private fun setTabFragment(fragment: Fragment) {
