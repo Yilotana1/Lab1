@@ -1,4 +1,4 @@
-package ua.kpi.comsys.io8107
+package ua.kpi.comsys.io8107.GraphPage
 
 import android.annotation.SuppressLint
 import android.content.Context

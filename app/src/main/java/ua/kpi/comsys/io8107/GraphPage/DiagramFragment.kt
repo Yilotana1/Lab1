@@ -1,4 +1,4 @@
-package ua.kpi.comsys.io8107
+package ua.kpi.comsys.io8107.GraphPage
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
-class GraphFragment : Fragment() {
+class DiagramFragment: Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -14,6 +14,6 @@ class GraphFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return activity?.let { GraphView(it.applicationContext) }
+        return activity?.let { DiagramView(it.applicationContext) }
     }
 }
