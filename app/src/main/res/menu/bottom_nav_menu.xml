@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/third"
-        android:title="@string/second"
-        android:icon="@drawable/ic_second_foreground"/>
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="Third" />
 
 </menu>

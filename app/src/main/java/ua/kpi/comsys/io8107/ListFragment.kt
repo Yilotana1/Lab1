@@ -1,21 +1,20 @@
 package ua.kpi.comsys.io8107
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ListView
 import android.widget.SimpleAdapter
 import androidx.fragment.app.Fragment
-import com.google.gson.Gson
-import ua.kpi.comsys.io8107.ListPage.Book
-import java.io.InputStreamReader
-import java.util.*
+import ua.kpi.comsys.io8107.ListPage.DAO
 import kotlin.collections.ArrayList
-
-const val FILE_NAME: String = "BookList.txt"
 
 class ListFragment : Fragment(R.layout.list_fragment) {
 
@@ -26,9 +25,39 @@ class ListFragment : Fragment(R.layout.list_fragment) {
         savedInstanceState: Bundle?
     ): View? {
 
+        val dao = context?.let { DAO(it) }
+
         val view = inflater.inflate(R.layout.list_fragment, container, false)
 
         val list: ListView = view.findViewById(R.id.list)
+
+        val simpleAdapter = dao?.let { createAdapter(it) }
+
+        list.adapter = simpleAdapter
+
+        Log.d("ADAPTER", simpleAdapter?.count.toString())
+        val inputField = view.findViewById<EditText>(R.id.search)
+
+        inputField.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                simpleAdapter?.filter?.filter(s)
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+
+        return view
+    }
+
+    fun createAdapter(dao: DAO): SimpleAdapter? {
 
         val imagesMap = mutableMapOf<String, Int>()
         imagesMap["Image_01.png"] = R.mipmap.image1_foreground
@@ -41,7 +70,7 @@ class ListFragment : Fragment(R.layout.list_fragment) {
         imagesMap["Image_10.png"] = R.mipmap.image10_foreground
 
 
-        val books = parseJson(FILE_NAME)
+        val books = dao.getBooks()
         val titles = mutableListOf<String>()
         val subtitles = mutableListOf<String>()
         val prices = mutableListOf<String>()
@@ -75,33 +104,25 @@ class ListFragment : Fragment(R.layout.list_fragment) {
             arrList.add(map)
         }
 
-        val simpleAdapter = context?.let {
+        return context?.let {
             SimpleAdapter(it, arrList, R.layout.list_item, from, to)
         }
-
-        list.adapter = simpleAdapter
-        return view
     }
 
 
+    class Adapter(context: Context?,
+                  data: MutableList<out MutableMap<String, *>>?, resource: Int,
+                  from: Array<out String>?, to: IntArray?
+    ) : SimpleAdapter(context, data, resource, from, to){
 
-    fun parseJson(fileName: String): Array<Book> {
-
-        val scanner = Scanner(InputStreamReader(context?.assets?.open(fileName)))
-        val sb = StringBuilder()
-        while (scanner.hasNext()) {
-            sb.append(scanner.nextLine())
+        private val list = data
+        override fun getCount(): Int {
+            if (list == null) {return 0}
+            return super.getCount()
         }
-
-        val gson = Gson()
-
-        val books = gson.fromJson(
-            sb.toString(),
-            BooksContainer::class.java
-        )
-
-        return books.books
     }
+
+
 
 }
 
